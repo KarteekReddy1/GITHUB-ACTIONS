@@ -4,13 +4,13 @@ on:
   workflow_dispatch
 
 env:
-  cloud: AWS
+  cloud: AWS Cloud with GITHUB Actions
 
 jobs:
   greeting_job:
     runs-on: ubuntu-latest
     env:
-      Greeting: WELCOME
+      Greeting: WELCOME,
     steps:
       - name: "Say Hello it's Monday"
         run: echo "$Greeting $First_Name is using $cloud!"
