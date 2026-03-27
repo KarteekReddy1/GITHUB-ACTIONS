@@ -1,0 +1,25 @@
+
+on: 
+  workflow_dispatch
+
+env:                # Global environment variable
+  MY_VARIABLE: "global variable"
+
+jobs:
+  variable_job:
+    runs-on: ubuntu-latest
+    env:
+      JOB_VARIABLE: "job variable"
+    steps:
+      - name: Set variable
+        env:
+          STEP_VARIABLE: "step variable"
+        run: |
+          echo $STEP_VARIABLE
+          echo $JOB_VARIABLE 
+          echo $MY_VARIABLE
+          echo "repository: ${{ vars.build }}"
+          echo "context variable: ${{ github.repository }}"
+          echo "context variable: ${{ github.workflow }}"
+          echo "context variable: ${{ github.actor }}"
+          echo "secret variable: ${{ secrets.token }}"
