@@ -7,8 +7,8 @@ data "aws_vpc" "default" {
 data "aws_subnet" "default" {
   vpc_id = data.aws_vpc.default.id
 }
-resource "aws_security_group" "sg1" {
-  name        = "allow_ssh"
+resource "aws_security_group" "sg2" {
+  name        = "allow_ssh2"
   description = "Allow SSH inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
@@ -32,7 +32,7 @@ resource "aws_instance" "example" {
   ami                    = "ami-02dfbd4ff395f2a1b" # Amazon Linux 2 (us-east-1)
   instance_type          = "t2.micro"
   subnet_id              = data.aws_subnet.default.id
-  vpc_security_group_ids = [aws_security_group.sg1.id]
+  vpc_security_group_ids = [aws_security_group.sg2.id]
 
   tags = {
     Name = "Terraform-EC2"
