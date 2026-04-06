@@ -18,14 +18,10 @@ jobs:
       - name: Check Java version
         run: java -version
      
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
       - name: Compile Java program
         run: javac HelloWorld.java  
     
-      - name: Checkout repository
-        uses: actions/checkout@v5
+    
 
       - name: Run Java program
         run: java -cp . HelloWorld
