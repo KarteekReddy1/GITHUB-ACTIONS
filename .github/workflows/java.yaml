@@ -1,0 +1,32 @@
+name: installing java
+on: workflow_dispatch
+run-name: ${{ github.actor}} is installing java
+jobs:
+  install_java_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: installing java in linux
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: check java version
+        run: java -version
+compile_Java_program:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout repository
+       uses: actions/checkout@v5
+
+     - name: run java program
+       run: javac HelloWorld.java
+run_Java_program:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout repository
+       uses: actions/checkout@v5
+
+     - name: compile java program
+       run: java HelloWorld.java
