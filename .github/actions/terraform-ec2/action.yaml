@@ -18,9 +18,9 @@ runs:
     - uses: hashicorp/setup-terraform@v2
     - name: Set AWS Credentials
       run: |
-        echo "AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_I }}" >> $GITHUB_ENV
-        echo "AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KE }}" >> $GITHUB_ENV
-        echo "AWS_DEFAULT_REGION=${{ inputs.AWS_DEFAULT_REGIO }}" >> $GITHUB_ENV
+        echo "AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+        echo "AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+        echo "AWS_DEFAULT_REGION=${{ inputs.AWS_DEFAULT_REGION }}" >> $GITHUB_ENV
       shell: bash
     - run: terraform init
       shell: bash
