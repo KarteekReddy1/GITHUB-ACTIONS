@@ -2,14 +2,14 @@ name: "created using composite actions"
 description: "this workflow is created using composite actions"
 
 inputs:
-  aws-access-key-id:
-    description: "AWS Access Key ID"
+  AWS_SECRET_ACCESS_KEY:
+    description: "aws-access-key-id"
     required: true
-  aws-secret-access-key:
-    description: "AWS Secret Access Key"
+  AWS_ACCESS_KEY_ID:
+    description: "aws-secret-access-key"
     required: true
-  aws-default-region: 
-    description: "AWS Default Region"
+  AWS_DEFAULT_REGION: 
+    description: "aws-region"
     required: true
 runs:
   using: "composite"
