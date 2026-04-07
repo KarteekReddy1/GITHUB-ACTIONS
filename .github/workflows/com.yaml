@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Provision EC2 with Terraform
-        uses: GITHUB-ACTIONS/.github/actions/terraform-ec2/action.yaml
+        uses: ./.github/actions/terraform-ec2/action.yaml
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
