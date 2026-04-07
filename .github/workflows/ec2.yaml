@@ -3,7 +3,7 @@ on: workflow_dispatch
 jobs:
   EC2_with_terraform:
     name: creating EC2 with terraform
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
