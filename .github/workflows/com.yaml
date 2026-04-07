@@ -5,6 +5,8 @@ jobs:
   EC2_with_terraform:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
       - name: Provision EC2 with Terraform
         uses: ./.github/actions/terraform-ec2
         with:
