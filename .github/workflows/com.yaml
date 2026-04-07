@@ -32,7 +32,7 @@ jobs:
         id: ec2_check
         run: |
           if aws ec2 describe-instances \
-            --filters "Name=tag:Name,Values=Terraform-EC2" \
+            --filters "Name=tag:Name,Values=Terraform-EC2" "Name=instance-state-name,Values=running" \
             --region "$AWS_DEFAULT_REGION" \
             --query "Reservations[*].Instances[*].InstanceId" \
             --output text | grep -q .; then
