@@ -1,4 +1,4 @@
-name: Creating AWS_EC2 using Terraform in GitHub
+name: AWS_EC2 using Terraform
 on: workflow_dispatch
 
 jobs:
