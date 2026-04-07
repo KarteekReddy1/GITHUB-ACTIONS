@@ -1,15 +1,55 @@
 name: AWS_EC2 using Terraform
-on: workflow_dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the environment to deploy'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
 
 jobs:
   EC2_with_terraform:
     runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
       - name: Provision EC2 with Terraform
         uses: ./.github/actions/terraform-ec2
         with:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Check if EC2 exists
+        id: ec2_check
+        run: |
+          if aws ec2 describe-instances \
+            --filters "Name=tag:Name,Values=Terraform-EC2" \
+            --region "$AWS_DEFAULT_REGION" \
+            --query "Reservations[*].Instances[*].InstanceId" \
+            --output text | grep -q .; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Terraform Destroy
+        if: ${{ steps.ec2_check.outputs.exists == 'true' }}
+        run: terraform destroy -auto-approve
+
+      - name: Terraform Apply
+        if: ${{ steps.ec2_check.outputs.exists == 'false' }}
+        run: terraform apply -auto-approve
